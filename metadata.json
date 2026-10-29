@@ -1,0 +1,6 @@
+{
+  "name": "Titán Fitness - Gimnasio Premium en Lima",
+  "description": "Landing pública oficial de Titán Fitness en Lima, Perú. Entrena en nuestras sedes de Miraflores y San Isidro con equipamiento de nivel olímpico y planes flexibles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

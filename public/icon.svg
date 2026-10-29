@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#0A0D10"/>
+  <!-- Ambient background glow -->
+  <circle cx="256" cy="256" r="180" fill="url(#titan_glow)" opacity="0.3"/>
+  
+  <!-- Stylized Geometric T / Dumbbell Crest -->
+  <path d="M120 140 H392 V196 H286 V372 H226 V196 H120 V140Z" fill="url(#titan_flame)"/>
+  <path d="M160 300 L256 410 L352 300 H304 L256 356 L208 300 H160Z" fill="#FF5500"/>
+  
+  <defs>
+    <linearGradient id="titan_flame" x1="120" y1="140" x2="392" y2="372" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF7A00"/>
+      <stop offset="50%" stop-color="#FF4800"/>
+      <stop offset="100%" stop-color="#E11D48"/>
+    </linearGradient>
+    <radialGradient id="titan_glow" cx="0.5" cy="0.5" r="0.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF5500" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0A0D10" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
