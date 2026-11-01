@@ -13,6 +13,7 @@ import {
   Bell
 } from 'lucide-react';
 import type { SocioProfile, EstadoMembresia } from '../../types/socio';
+import { CalorieTrackerCard } from './CalorieTrackerCard';
 
 interface InicioScreenProps {
   socio: SocioProfile;
@@ -213,6 +214,9 @@ export const InicioScreen: React.FC<InicioScreenProps> = ({
           </span>
         </div>
       </div>
+
+      {/* Contador de Calorías & Nutrición Inteligente */}
+      <CalorieTrackerCard socio={socio} />
 
       {/* Target Focus */}
       <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">

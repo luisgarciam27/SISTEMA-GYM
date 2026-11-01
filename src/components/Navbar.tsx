@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Sun, Moon, Download, Dumbbell, MapPin } from 'lucide-react';
+import { Menu, X, Sun, Moon, Download, Dumbbell, MapPin, Flame, User } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import type { Sede } from '../types/database';
 
@@ -11,6 +11,7 @@ interface NavbarProps {
   toggleDarkMode: () => void;
   onSelectCTA?: () => void;
   onOpenCustomizer?: () => void;
+  onSwitchToSocio?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -21,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   toggleDarkMode,
   onSelectCTA,
   onOpenCustomizer,
+  onSwitchToSocio,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isInstallable, install } = usePWAInstall();
@@ -101,7 +103,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Zone 3: Actions (Theme toggle, PWA install & Primary CTA) */}
-          <div className="hidden md:flex items-center gap-3.5 shrink-0">
+          <div className="hidden md:flex items-center gap-3 shrink-0">
+            {onSwitchToSocio && (
+              <button
+                onClick={onSwitchToSocio}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold font-mono rounded-lg bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/30 hover:bg-orange-500/20 transition-all shadow-xs cursor-pointer"
+                title="Acceso al portal de Socios"
+              >
+                <User className="w-3.5 h-3.5 text-orange-500" />
+                <span>Acceso Socios</span>
+              </button>
+            )}
+
             {onOpenCustomizer && (
               <button
                 onClick={onOpenCustomizer}
@@ -200,6 +213,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Sedes
               </a>
             </div>
+
+            {onSwitchToSocio && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onSwitchToSocio();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-mono font-bold text-orange-600 dark:text-orange-400 bg-orange-500/10 rounded-lg border border-orange-500/30"
+              >
+                <User className="w-4 h-4 text-orange-500" />
+                <span>Portal Socios (Mi Cuenta)</span>
+              </button>
+            )}
 
             {onOpenCustomizer && (
               <button

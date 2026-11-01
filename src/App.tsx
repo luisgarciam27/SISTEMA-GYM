@@ -21,6 +21,7 @@ import { QRScreen } from './components/socio/QRScreen';
 import { PerfilScreen } from './components/socio/PerfilScreen';
 import { BottomNav } from './components/socio/BottomNav';
 import { PhasePreviewScreen } from './components/socio/PhasePreviewScreen';
+import { ProgresoScreen } from './components/socio/ProgresoScreen';
 
 // Admin / Business Owner Screen
 import { AdminScreen } from './components/admin/AdminScreen';
@@ -69,12 +70,14 @@ export default function App() {
   // Selected promo for lead capture form
   const [selectedPromo, setSelectedPromo] = useState('Pase Prueba 1 Mes (S/ 99)');
 
-  // Socio App state
+  // Socio App state (pre-cargado con DEMO_SOCIO para prueba inmediata)
   const [currentUser, setCurrentUser] = useState<any>(() => {
     const cached = getOfflineSocio();
-    return cached ? { id: cached.user_id, email: cached.email } : null;
+    return cached 
+      ? { id: cached.user_id, email: cached.email, celular: cached.celular } 
+      : { id: DEMO_SOCIO.user_id, email: DEMO_SOCIO.email, celular: DEMO_SOCIO.celular };
   });
-  const [socioProfile, setSocioProfile] = useState<SocioProfile | null>(() => getOfflineSocio());
+  const [socioProfile, setSocioProfile] = useState<SocioProfile | null>(() => getOfflineSocio() || DEMO_SOCIO);
   const [inWizardMode, setInWizardMode] = useState(false);
   const [socioTab, setSocioTab] = useState('inicio');
   const [showQRScreen, setShowQRScreen] = useState(false);
@@ -295,9 +298,10 @@ export default function App() {
           )}
 
           {socioTab === 'progreso' && (
-            <PhasePreviewScreen
-              module="progreso"
+            <ProgresoScreen
+              socio={currentSocio}
               onBack={() => setSocioTab('inicio')}
+              onOpenQR={() => setShowQRScreen(true)}
             />
           )}
 
@@ -368,16 +372,19 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setAppMode('socio')}
-              className="px-3 py-1 rounded-lg transition-all flex items-center gap-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800/60"
+              onClick={() => {
+                setAppMode('socio');
+                setSocioTab('inicio');
+              }}
+              className="px-3 py-1 rounded-lg transition-all flex items-center gap-1.5 text-zinc-300 hover:text-white hover:bg-zinc-800/80 cursor-pointer"
             >
-              <User className="w-3.5 h-3.5" />
+              <User className="w-3.5 h-3.5 text-orange-500" />
               <span>2. App Socio (Mi Cuenta)</span>
             </button>
 
             <button
               onClick={() => setAppMode('admin')}
-              className="px-3 py-1 rounded-lg transition-all flex items-center gap-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800/60"
+              className="px-3 py-1 rounded-lg transition-all flex items-center gap-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800/60 cursor-pointer"
             >
               <Crown className="w-3.5 h-3.5" />
               <span>3. Dueño / Admin</span>
@@ -399,6 +406,10 @@ export default function App() {
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }}
         onOpenCustomizer={() => setIsCustomizerOpen(true)}
+        onSwitchToSocio={() => {
+          setAppMode('socio');
+          setSocioTab('inicio');
+        }}
       />
 
       {/* Floating toast */}
@@ -452,6 +463,7 @@ export default function App() {
           }}
         />
       </main>
+
 
       {/* Floating WhatsApp Action */}
       <FloatingWhatsApp
